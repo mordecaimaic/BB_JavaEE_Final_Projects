@@ -22,7 +22,7 @@
     <!-- 根据用户名取出密码哈希 -->
     <select id="getPasswordHash"
             parameterType="String"
-            resultType="String">
+            resultType="string">
         SELECT password
         FROM   users
         WHERE  username = #{username}

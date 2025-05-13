@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <%-- 引入 JSTL fmt 库用于日期格式化 --%>
-<%@ page import="com.campus.assistant.model.User" %>
+<%@ page import="com.example.model.User" %>
 <%@ page import="java.sql.Timestamp" %> <%-- 引入 Timestamp 用于比较 --%>
 <%@ page import="java.util.Date" %> <%-- 引入 Date 用于比较 --%>
 
@@ -9,7 +9,7 @@
 <%
     User loggedInUser = (User) session.getAttribute("user");
     if (loggedInUser == null) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/login");
         return;
     }
     // 获取当前时间用于比较截止日期
@@ -178,7 +178,7 @@
     </div>
 
     <div class="mt-4 text-center">
-        <a href="dashboard.jsp" class="btn btn-secondary">返回仪表板</a>
+        <a href="dashboard" class="btn btn-secondary">返回仪表板</a>
     </div>
 
 </div> <%-- End of .container --%>

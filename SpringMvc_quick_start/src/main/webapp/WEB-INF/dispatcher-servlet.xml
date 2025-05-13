@@ -11,19 +11,17 @@
          http://www.springframework.org/schema/context
          https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- ========= ① 启用 @Controller 注解驱动 ========= -->
     <mvc:annotation-driven/>
 
-    <!-- ========= ② 只扫描 Controller ========= -->
     <context:component-scan base-package="com.example.controller"/>
 
-    <!-- ========= ③ 视图解析器 (JSP) ========= -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- ========= ④ 静态资源映射，可选 ========= -->
     <mvc:resources mapping="/static/**" location="/static/"/>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
 
 </beans>

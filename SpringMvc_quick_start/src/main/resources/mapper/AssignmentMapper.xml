@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.AssignmentMapper">
+
+    <resultMap id="AssignmentWithSubmissionResultMap" type="com.example.model.AssignmentWithSubmission">
+        <association property="assignment" javaType="com.example.model.Assignment">
+            <id property="assignmentId" column="a_assignment_id"/>
+            <result property="courseId" column="a_course_id"/>
+            <result property="title" column="a_title"/>
+            <result property="description" column="a_description"/>
+            <result property="deadline" column="a_deadline"/>
+            <result property="maxScore" column="a_max_score"/>
+        </association>
+
+        <association property="submission" javaType="com.example.model.Submission">
+            <id property="submissionId" column="s_submission_id"/> <result property="assignmentId" column="a_assignment_id"/> <result property="userId" column="s_user_id"/> <result property="filePath" column="s_file_path"/>
+            <result property="submitTime" column="s_submit_time"/>
+            <result property="status" column="s_status"/>
+            <result property="score" column="s_score"/>
+            <result property="feedback" column="s_feedback"/>
+        </association>
+    </resultMap>
+
+    <select id="getAssignmentsWithSubmissionsForUser" resultMap="AssignmentWithSubmissionResultMap" parameterType="int">
+        SELECT
+            a.assignment_id as a_assignment_id, a.course_id as a_course_id, a.title as a_title,
+            a.description as a_description, a.deadline as a_deadline, a.max_score as a_max_score,
+            s.submission_id as s_submission_id, s.user_id as s_user_id, s.file_path as s_file_path, s.submit_time as s_submit_time,
+            s.status as s_status, s.score as s_score, s.feedback as s_feedback
+        FROM
+            assignments a
+                LEFT JOIN
+            submissions s ON a.assignment_id = s.assignment_id AND s.user_id = #{userId}
+        ORDER BY a.deadline ASC
+    </select>
+
+    <insert id="insertSubmission" parameterType="com.example.model.Submission" useGeneratedKeys="true" keyProperty="submissionId">
+        INSERT INTO submissions (assignment_id, user_id, file_path, submit_time, status)
+        VALUES (#{assignmentId}, #{userId}, #{filePath}, NOW(), '已提交')
+    </insert>
+
+    <update id="updateSubmission" parameterType="com.example.model.Submission">
+        UPDATE submissions
+        SET file_path = #{filePath}, submit_time = NOW(), status = '已提交'
+        WHERE assignment_id = #{assignmentId} AND user_id = #{userId}
+    </update>
+
+    <insert id="upsertSubmission" parameterType="com.example.model.Submission">
+        INSERT INTO submissions (assignment_id, user_id, file_path, submit_time, status)
+        VALUES (#{assignmentId}, #{userId}, #{filePath}, NOW(), '已提交')
+        ON DUPLICATE KEY UPDATE
+                             file_path = VALUES(file_path),
+                             submit_time = NOW(),
+                             status = VALUES(status)
+    </insert>
+
+</mapper>
