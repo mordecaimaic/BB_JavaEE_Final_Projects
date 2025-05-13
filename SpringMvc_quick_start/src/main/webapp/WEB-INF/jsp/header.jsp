@@ -8,7 +8,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <%-- Logo 或 站点名称，链接到仪表板 --%>
-    <a class="navbar-brand" href="dashboard.jsp">校园小助手</a>
+    <a class="navbar-brand" href="dashboard">校园小助手</a>
 
     <%-- 移动设备上的折叠按钮 --%>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,22 +20,22 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <%-- 如果当前页面是 dashboard.jsp，则添加 'active' 类 --%>
-          <a class="nav-link <%= currentURI.endsWith("dashboard.jsp") ? "active" : "" %>" aria-current="page" href="dashboard.jsp">首页</a>
+          <a class="nav-link <%= currentURI.endsWith("dashboard") ? "active" : "" %>" aria-current="page" href="dashboard">首页</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%= currentURI.endsWith("courses.jsp") ? "active" : "" %>" href="courses.jsp">课程管理</a>
+          <a class="nav-link <%= currentURI.endsWith("courses") ? "active" : "" %>" href="courses">课程管理</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%= currentURI.endsWith("assignments.jsp") ? "active" : "" %>" href="assignments.jsp">作业提交</a>
+          <a class="nav-link <%= currentURI.endsWith("assignments") ? "active" : "" %>" href="assignments">作业提交</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%= currentURI.endsWith("announcements.jsp") ? "active" : "" %>" href="announcements.jsp">校园公告</a>
+          <a class="nav-link <%= currentURI.endsWith("announcements") ? "active" : "" %>" href="announcements">校园公告</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%= currentURI.endsWith("schedule.jsp") ? "active" : "" %>" href="schedule.jsp">个人日程</a>
+          <a class="nav-link <%= currentURI.endsWith("schedule") ? "active" : "" %>" href="schedule">个人日程</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%= currentURI.endsWith("materials.jsp") ? "active" : "" %>" href="materials.jsp">资料共享</a>
+          <a class="nav-link <%= currentURI.endsWith("materials") ? "active" : "" %>" href="materials">资料共享</a>
         </li>
       </ul>
 
