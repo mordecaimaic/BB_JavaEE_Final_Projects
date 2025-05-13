@@ -1,0 +1,79 @@
+# Byte-compiled / optimized / DLL files
+*.class
+*.obj
+*.o
+*.dll
+*.so
+*.exe
+
+# Log files
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Packages
+# *.jar  <-- 通常不忽略 .jar，除非它们是最终的构建产物，并且你不希望它们在特定场景下被跟踪
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.war  # WAR包是构建产物，通常需要忽略
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# .mvn/wrapper/maven-wrapper.jar # 通常我们希望跟踪这个，以确保构建一致性。如果想强制不忽略，使用 !.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+# Deprecated, but good to have for older projects
+# *.ipr
+
+# Local Datasource Config (IntelliJ IDEA)
+# These often contain user-specific paths or credentials
+/.idea/dataSources/
+/dataSources.local.xml
+
+# Local HTTP Client Requests (IntelliJ IDEA)
+/httpRequests/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+__MACOSX/
+*~
+# KDE Worker Files
+.directory
+# LibreOffice lock files
+.~lock.*#
+
+# Optional: User-specific or temporary files
+# HELP.md # 如果你确实不想跟踪这个文件，取消注释
+
+# STS (Spring Tool Suite) specific (if you or team members use it)
+# .apt_generated
+# .classpath
+# .factorypath
+# .project # .project for Eclipse/STS can sometimes be shared if configured carefully, but often user-specific parts exist
+# .settings/
+# .springBeans
+# .sts4-cache
+
+# VS Code (if you or team members use it)
+# .vscode/

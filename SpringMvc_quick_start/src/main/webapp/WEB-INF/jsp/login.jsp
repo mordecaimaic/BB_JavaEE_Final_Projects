@@ -82,7 +82,7 @@
 
         <button type="submit" class="btn btn-primary w-100">登录</button>
         <div class="mt-3 text-center">
-            <a href="register.jsp">没有账号？去注册</a>
+            <a href="register">没有账号？去注册</a>
         </div>
     </form>
 </div>

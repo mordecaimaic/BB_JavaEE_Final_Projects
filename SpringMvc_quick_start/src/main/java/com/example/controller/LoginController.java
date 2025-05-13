@@ -1,8 +1,10 @@
 package com.example.controller;
 
+import com.example.model.User;
 import com.example.service.AuthService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,21 +22,21 @@ public class LoginController {
         return "login";  // /WEB-INF/views/login.jsp
     }
 
+    /** POST /login —— 处理登录 */
     @PostMapping
-    public String doLogin(@RequestParam("username") String username, // 显式指定请求参数名
-                          @RequestParam("password") String password, // 显式指定请求参数名
-                          @RequestParam(value = "rememberMe", defaultValue = "false")
-                          boolean rememberMe,
-                          Model model,
-                          HttpServletResponse resp) {
+    public String doLogin(@RequestParam("username") String username,
+                          @RequestParam("password") String password,
+                          HttpSession session,
+                          Model model) {
 
-        boolean ok = authService.login(username, password, rememberMe, resp);
-
-        if (!ok) {
+        User user = authService.login(username, password);
+        if (user == null) {
             model.addAttribute("errorMessage", "用户名或密码错误");
             return "login";
         }
-        return "redirect:/home";   // 登录成功跳首页
+        // 存 session
+        session.setAttribute("user", user);
+        return "redirect:/index";
     }
 
     @GetMapping("/logout")

@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 
-    @GetMapping({"/", ""})
+    @GetMapping({"/", "/index"})
     public String index(HttpSession session) {
-        // 如果没登录，redirect: 前缀会让 Spring MVC 发 302 跳转
-//        if (session.getAttribute("user") == null) {
-//            return "redirect:/login";
-//        }
-//        // 如果已经登录，就去 dashboard
-//        return "redirect:/dashboard";
-        return "index";
+        if (session.getAttribute("loginUser") != null) {
+            // 已登录 → 去仪表盘
+            return "redirect:/dashboard";
+        }
+        // 未登录 → 去登录页
+        return "redirect:/login";
     }
 
 //    @GetMapping("/hello")
@@ -23,10 +22,10 @@ public class PageController {
 //        return "hello";
 //    }
 //
-//    @GetMapping("/dashboard")
-//    public String dashboard() {
-//        return "dashboard";
-//    }
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboard";
+    }
 //
 //    @GetMapping("/announcements")
 //    public String announcements() {

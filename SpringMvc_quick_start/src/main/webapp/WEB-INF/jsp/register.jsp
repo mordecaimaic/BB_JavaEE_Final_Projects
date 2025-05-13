@@ -34,7 +34,7 @@
         </div>
         <button type="submit" class="btn btn-success w-100">注册</button>
         <div class="mt-3 text-center">
-            <a href="login.jsp">已有账号？去登录</a>
+            <a href="login">已有账号？去登录</a>
         </div>
     </form>
 </div>

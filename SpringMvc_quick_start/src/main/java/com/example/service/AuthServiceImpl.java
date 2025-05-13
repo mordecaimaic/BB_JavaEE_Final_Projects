@@ -3,8 +3,11 @@ package com.example.service;
 import com.example.mapper.PersistentLoginMapper;
 import com.example.mapper.UserMapper;
 import com.example.model.PersistentLogin;
+import com.example.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,38 +22,17 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserMapper              userMapper;
     private final PersistentLoginMapper   tokenMapper;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)
-    public boolean login(String username,
-                         String rawPassword,
-                         boolean rememberMe,
-                         HttpServletResponse resp) {
-
-        String hash = userMapper.getPasswordHash(username);
-        if (hash == null || !BCrypt.checkpw(rawPassword, hash)) {
-            return false;                 // 用户名不存在或密码错误
+    public User login(String username, String rawPassword) {
+        User dbUser = userMapper.selectByUsername(username);
+        if (dbUser != null && passwordEncoder.matches(rawPassword, dbUser.getPassword())) {
+            return dbUser;          // OK!
         }
-
-        if (rememberMe) { // 生成 token 保存到 Cookie + DB
-            String series = UUID.randomUUID().toString().replace("-", "");
-            String token  = UUID.randomUUID().toString().replace("-", "");
-
-            PersistentLogin pl = new PersistentLogin();
-            pl.setSeries(series);
-            pl.setUsername(username);
-            pl.setToken(token);
-            pl.setLastUsed(new Timestamp(System.currentTimeMillis()));
-            tokenMapper.save(pl);
-
-            Cookie c1 = new Cookie("REMEMBER_SERIES", series);
-            Cookie c2 = new Cookie("REMEMBER_TOKEN",  token);
-            int maxAge = 60 * 60 * 24 * 7; // 7 天
-            c1.setMaxAge(maxAge);  c2.setMaxAge(maxAge);
-            c1.setPath("/");       c2.setPath("/");
-            resp.addCookie(c1);    resp.addCookie(c2);
-        }
-        return true;
+        return null;                // 失败
     }
 
     @Override
