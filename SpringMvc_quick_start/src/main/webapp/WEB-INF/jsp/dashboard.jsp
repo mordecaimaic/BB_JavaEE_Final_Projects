@@ -7,7 +7,7 @@
     // 假设登录成功后，你在 Servlet 中执行了: session.setAttribute("user", userObject);
     if (session.getAttribute("user") == null) {
         // 如果未登录，重定向到登录页面
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("login");
         return; // 必须加 return，防止继续执行页面代码导致错误
     }
     // 如果已登录，可以获取用户信息 (可选，如果 header.jsp 中已处理)

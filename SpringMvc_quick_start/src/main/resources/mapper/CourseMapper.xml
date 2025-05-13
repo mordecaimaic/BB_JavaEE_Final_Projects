@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.CourseMapper">
+
+    <resultMap id="CourseResultMap" type="com.example.model.Course">
+        <id property="courseId" column="course_id"/>
+        <result property="courseName" column="course_name"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="classroom" column="classroom"/>
+        <result property="schedule" column="schedule"/>
+        <result property="credit" column="credit"/>
+        <result property="type" column="type"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <select id="getCoursesByUserId" resultMap="CourseResultMap" parameterType="int">
+        SELECT *
+        FROM courses
+        WHERE course_id IN (SELECT uc.course_id FROM user_courses uc WHERE uc.user_id = #{userId})
+    </select>
+
+    <select id="getAllAvailableCourses" resultMap="CourseResultMap">
+        SELECT *
+        FROM courses
+    </select>
+
+</mapper>

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%-- 引入 JSTL --%>
-<%@ page import="com.campus.assistant.model.User" %> <%-- 引入 User 类 --%>
+<%@ page import="com.example.model.User" %> <%-- 假设你的User类在 com.example.model 包下 --%>
 
 <%-- 1. 登录状态检查 --%>
 <%

@@ -9,7 +9,7 @@ public class PageController {
 
     @GetMapping({"/", "/index"})
     public String index(HttpSession session) {
-        if (session.getAttribute("loginUser") != null) {
+        if (session.getAttribute("user") != null) {
             // 已登录 → 去仪表盘
             return "redirect:/dashboard";
         }
