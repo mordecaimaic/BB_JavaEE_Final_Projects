@@ -1,13 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <%-- 用于日期格式化 --%>
-<%@ page import="com.campus.assistant.model.User" %>
+<%@ page import="com.example.model.User" %>
 
 <%-- 1. 登录状态检查 (Servlet 已做，这里可省略或保留) --%>
 <%
     User loggedInUser = (User) session.getAttribute("user");
     if (loggedInUser == null) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/login");
         return;
     }
 %>
@@ -32,8 +32,15 @@
             color: #6c757d; /* 元数据用灰色 */
         }
         .announcement-content {
-            white-space: pre-wrap; /* 保留公告内容中的换行和空格 */
-            margin-top: 0.5rem;
+            white-space: pre-line;  /* 保留换行符，合并空格，自动换行 */
+            /* 如果不需要保留换行，可设为 'normal' 或删除此行 */
+            line-height: 1.65;      /* 正常的行高，为了可读性 */
+            color: #495057;         /* 内容文本颜色 */
+            font-size: 0.95rem;      /* 内容字体大小 */
+            /* height: auto; 是 div 的默认行为，通常不需要显式声明 */
+            /* display: block; 是 div 的默认行为，通常不需要显式声明 */
+            /* vertical-align 对 display:block 元素通常无效，所以移除 */
+            /* margin-top 已经由 .announcement-meta 的 margin-bottom 控制，此处移除以避免双重边距 */
         }
     </style>
 </head>
@@ -89,7 +96,7 @@
     </c:choose>
 
     <div class="mt-4 text-center">
-        <a href="dashboard.jsp" class="btn btn-secondary">返回仪表板</a>
+        <a href="dashboard" class="btn btn-secondary">返回仪表板</a>
     </div>
 
 </div> <%-- End of .container --%>

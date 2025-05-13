@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.AnnouncementMapper">
+
+    <select id="selectForUser" resultType="com.example.model.Announcement">
+        SELECT
+        a.announcement_id      AS announcementId,
+        a.title,
+        a.content,
+        a.publisher_id         AS publisherId,
+        u.username             AS publisherName,
+        a.scope,
+        a.department,
+        a.is_urgent            AS urgent,
+        a.publish_time         AS publishTime
+        FROM announcements a
+        JOIN users u ON a.publisher_id = u.user_id
+        WHERE a.scope = '全校'
+        <if test="department != null and department.trim() != ''">
+            OR (a.scope = '院系' AND a.department = #{department})
+        </if>
+        ORDER BY a.is_urgent DESC, a.publish_time DESC
+    </select>
+
+</mapper>
