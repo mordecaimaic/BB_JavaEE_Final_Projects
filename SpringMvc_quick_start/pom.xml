@@ -48,17 +48,6 @@
             <version>${mysql.connector.version}</version>
         </dependency>
 
-        <!-- 4. JSTL 支持 -->
-        <dependency>
-            <groupId>jakarta.servlet.jsp.jstl</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-            <version>2.0.0</version>
-        </dependency>
 
         <!-- 5. Servlet API（容器提供） -->
         <dependency>
@@ -92,6 +81,42 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <!-- Lombok (Corrected Scope and Single Declaration) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version> <!-- 保持或更新 -->
+            <scope>compile</scope> <!-- 或者 <scope>compileOnly</scope> 如果你了解并配置了它 -->
+        </dependency>
+
+        <!-- ① Expression Language，Tomcat 11 运行 JSP 必需 -->
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+
+        <!-- ② JSTL（对 jakarta 前缀），用 3.x 才支持 Servlet 6 -->
+        <!-- 4. JSTL 支持 -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+        <!-- BCrypt 加密 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>6.2.2</version>
         </dependency>
     </dependencies>
 

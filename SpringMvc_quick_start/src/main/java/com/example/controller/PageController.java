@@ -18,55 +18,55 @@ public class PageController {
         return "index";
     }
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
-
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboard";
-    }
-
-    @GetMapping("/announcements")
-    public String announcements() {
-        return "announcements";
-    }
-
-    @GetMapping("/assignments")
-    public String assignments() {
-        return "assignments";
-    }
-
-    @GetMapping("/courses")
-    public String courses() {
-        return "courses";
-    }
-
-    @GetMapping("/materials")
-    public String materials() {
-        return "materials";
-    }
-
-    @GetMapping("/profile")
-    public String profile() {
-        return "profile";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @GetMapping("/register")
-    public String register() {
-        return "register";
-    }
-
-    @GetMapping("/schedule")
-    public String schedule() {
-        return "schedule";
-    }
+//    @GetMapping("/hello")
+//    public String hello() {
+//        return "hello";
+//    }
+//
+//    @GetMapping("/dashboard")
+//    public String dashboard() {
+//        return "dashboard";
+//    }
+//
+//    @GetMapping("/announcements")
+//    public String announcements() {
+//        return "announcements";
+//    }
+//
+//    @GetMapping("/assignments")
+//    public String assignments() {
+//        return "assignments";
+//    }
+//
+//    @GetMapping("/courses")
+//    public String courses() {
+//        return "courses";
+//    }
+//
+//    @GetMapping("/materials")
+//    public String materials() {
+//        return "materials";
+//    }
+//
+//    @GetMapping("/profile")
+//    public String profile() {
+//        return "profile";
+//    }
+//
+//    @GetMapping("/login")
+//    public String login() {
+//        return "login";
+//    }
+//
+//    @GetMapping("/register")
+//    public String register() {
+//        return "register";
+//    }
+//
+//    @GetMapping("/schedule")
+//    public String schedule() {
+//        return "schedule";
+//    }
 
     // header.jsp 通常是片段 include，不单独映射
 }

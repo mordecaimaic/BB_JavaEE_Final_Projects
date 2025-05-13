@@ -15,7 +15,7 @@
 <div class="register-container">
     <h2 class="text-center mb-4">用户注册</h2>
     <!-- 注册表单，提交目标需要后续创建Servlet来处理 -->
-    <form action="registerServlet" method="post"> <%-- 注意：action="registerServlet" 需要后续创建处理注册的Servlet --%>
+    <form action="register" method="post"> <%-- 注意：action="registerServlet" 需要后续创建处理注册的Servlet --%>
         <div class="mb-3">
             <label for="username" class="form-label">用户名:</label>
             <input type="text" class="form-control" id="username" name="username" required>

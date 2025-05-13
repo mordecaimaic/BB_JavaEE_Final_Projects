@@ -62,7 +62,7 @@
 
 
     <!-- 登录表单 -->
-    <form action="${pageContext.request.contextPath}/loginServlet" method="post">
+    <form action="${pageContext.request.contextPath}/login" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">用户名:</label>
             <input type="text" class="form-control" id="username" name="username" required>
