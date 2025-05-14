@@ -28,5 +28,4 @@ public class User {
 
     @EqualsAndHashCode.Exclude // 创建时间通常不参与对象相等性比较
     private Timestamp createdAt; // 对应 created_at (TIMESTAMP)
-
 }

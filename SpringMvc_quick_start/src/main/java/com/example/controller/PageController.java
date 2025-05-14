@@ -17,11 +17,11 @@ public class PageController {
         return "redirect:/login";
     }
 
-//    @GetMapping("/hello")
-//    public String hello() {
-//        return "hello";
-//    }
-//
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
+
     @GetMapping("/dashboard")
     public String dashboard() {
         return "dashboard";

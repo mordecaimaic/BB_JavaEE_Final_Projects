@@ -18,6 +18,4 @@ public class Course {
     private String type; // '必修' 或 '选修'
     private String description;
     private String semester; // 学生选课的学期 (通过联表查询获取)
-
-
 }
