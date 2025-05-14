@@ -13,10 +13,12 @@
             <result property="description" column="a_description"/>
             <result property="deadline" column="a_deadline"/>
             <result property="maxScore" column="a_max_score"/>
-        </association>
+            <result property="courseName" column="c_course_name"/> </association>
 
         <association property="submission" javaType="com.example.model.Submission">
-            <id property="submissionId" column="s_submission_id"/> <result property="assignmentId" column="a_assignment_id"/> <result property="userId" column="s_user_id"/> <result property="filePath" column="s_file_path"/>
+            <id property="submissionId" column="s_submission_id"/>
+            <result property="assignmentId" column="s_submission_assignment_id"/> <result property="userId" column="s_user_id"/>
+            <result property="filePath" column="s_file_path"/>
             <result property="submitTime" column="s_submit_time"/>
             <result property="status" column="s_status"/>
             <result property="score" column="s_score"/>
@@ -26,15 +28,29 @@
 
     <select id="getAssignmentsWithSubmissionsForUser" resultMap="AssignmentWithSubmissionResultMap" parameterType="int">
         SELECT
-            a.assignment_id as a_assignment_id, a.course_id as a_course_id, a.title as a_title,
-            a.description as a_description, a.deadline as a_deadline, a.max_score as a_max_score,
-            s.submission_id as s_submission_id, s.user_id as s_user_id, s.file_path as s_file_path, s.submit_time as s_submit_time,
-            s.status as s_status, s.score as s_score, s.feedback as s_feedback
+            a.assignment_id as a_assignment_id,
+            a.course_id as a_course_id,
+            a.title as a_title,
+            a.description as a_description,
+            a.deadline as a_deadline,
+            a.max_score as a_max_score,
+            c.course_name as c_course_name,     -- 【【添加】】查询课程名称，并使用别名 c_course_name
+            s.submission_id as s_submission_id,
+            s.assignment_id as s_submission_assignment_id, -- 【建议】给 submission 表的 assignment_id 也一个明确别名
+            s.user_id as s_user_id,
+            s.file_path as s_file_path,
+            s.submit_time as s_submit_time,
+            s.status as s_status,
+            s.score as s_score,
+            s.feedback as s_feedback
         FROM
             assignments a
+                INNER JOIN                           -- 【【添加】】与 courses 表进行 INNER JOIN
+                courses c ON a.course_id = c.course_id
                 LEFT JOIN
             submissions s ON a.assignment_id = s.assignment_id AND s.user_id = #{userId}
-        ORDER BY a.deadline ASC
+        ORDER BY
+            a.deadline ASC
     </select>
 
     <insert id="insertSubmission" parameterType="com.example.model.Submission" useGeneratedKeys="true" keyProperty="submissionId">
