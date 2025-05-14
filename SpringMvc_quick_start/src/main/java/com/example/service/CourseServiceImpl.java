@@ -34,27 +34,4 @@ public class CourseServiceImpl implements CourseService {
         System.out.println("CourseServiceImpl: 调用 courseMapper.getAllAvailableCourses");
         return courseMapper.getAllAvailableCourses(); // 调用 Mapper 方法
     }
-
-    // 方案 B: 如果你继续使用原始的 CourseDAO 类
-    /*
-    private final com.campus.assistant.dao.CourseDAO courseDAO; // 原始的 CourseDAO
-
-    @Autowired
-    public CourseServiceImpl(com.campus.assistant.dao.CourseDAO courseDAO) {
-        this.courseDAO = courseDAO;
-        System.out.println("CourseServiceImpl 初始化，CourseDAO 已注入。");
-    }
-
-    @Override
-    public List<Course> getCoursesByUserId(int userId) {
-        System.out.println("CourseServiceImpl: 调用 courseDAO.getCoursesByUserId for userId: " + userId);
-        return courseDAO.getCoursesByUserId(userId);
-    }
-
-    @Override
-    public List<Course> getAllAvailableCourses() {
-        System.out.println("CourseServiceImpl: 调用 courseDAO.getAllAvailableCourses");
-        return courseDAO.getAllAvailableCourses();
-    }
-    */
 }
