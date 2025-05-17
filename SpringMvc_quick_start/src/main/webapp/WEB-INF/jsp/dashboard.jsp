@@ -121,6 +121,42 @@
                 </div>
             </div>
 
+            <%-- 功能卡片 7: 生活费用缴纳 --%>
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">生活费用缴纳</h5>
+                        <p class="card-text text-muted">缴纳住宿费、水电费等校园生活相关费用。</p>
+                        <%-- ★★★ 修改这里的 href ★★★ --%>
+                        <a href="${pageContext.request.contextPath}/hello" class="btn btn-outline-primary mt-2">前往缴费</a>
+                    </div>
+                </div>
+            </div>
+
+            <%-- 功能卡片 8: 校园活动 --%>
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">校园活动</h5>
+                        <p class="card-text text-muted">查看近期校园活动、讲座和展览信息。</p>
+                        <%-- ★★★ 修改这里的 href ★★★ --%>
+                        <a href="${pageContext.request.contextPath}/hello" class="btn btn-outline-primary mt-2">查看活动</a>
+                    </div>
+                </div>
+            </div>
+
+            <%-- 功能卡片 9: 学生组织 --%>
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">学生组织</h5>
+                        <p class="card-text text-muted">浏览学生社团和组织，寻找您的兴趣爱好。</p>
+                        <%-- ★★★ 修改这里的 href ★★★ --%>
+                        <a href="${pageContext.request.contextPath}/hello" class="btn btn-outline-primary mt-2">探索组织</a>
+                    </div>
+                </div>
+            </div>
+
     </div> <%-- End of .row --%>
 </div> <%-- End of .container --%>
 
