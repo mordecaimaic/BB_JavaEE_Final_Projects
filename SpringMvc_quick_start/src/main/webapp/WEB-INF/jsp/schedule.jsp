@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="com.campus.assistant.model.User" %>
-<%@ page import="com.campus.assistant.model.Schedule" %>
+<%@ page import="com.example.model.User" %>
+<%@ page import="com.example.model.Schedule" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.time.LocalDateTime" %>
@@ -11,7 +11,7 @@
 <%
     User loggedInUser = (User) session.getAttribute("user");
     if (loggedInUser == null) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/login");
         return;
     }
     // 获取待编辑的日程对象
@@ -194,7 +194,7 @@
     </c:choose>
 
     <div class="mt-4 text-center">
-        <a href="dashboard.jsp" class="btn btn-secondary">返回仪表板</a>
+        <a href="dashboard" class="btn btn-secondary">返回仪表板</a>
     </div>
 
 </div> <%-- End of .container --%>
