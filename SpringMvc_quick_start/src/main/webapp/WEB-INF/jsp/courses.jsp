@@ -6,7 +6,7 @@
 <%
     User loggedInUser = (User) session.getAttribute("user");
     if (loggedInUser == null) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/login");
         return;
     }
 %>
@@ -139,7 +139,7 @@
     </div>
 
     <div class="mt-4 text-center">
-        <a href="dashboard.jsp" class="btn btn-secondary">返回仪表板</a>
+        <a href="dashboard" class="btn btn-secondary">返回仪表板</a>
     </div>
 
 </div> <%-- End of .container --%>
