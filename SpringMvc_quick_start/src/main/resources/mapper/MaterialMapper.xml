@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.MaterialMapper">
+
+    <resultMap id="MaterialResultMap" type="com.example.model.Material">
+        <id property="materialId" column="material_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="uploaderId" column="uploader_id"/>
+        <result property="fileName" column="file_name"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileType" column="file_type"/>
+        <result property="fileSize" column="file_size"/>
+        <result property="description" column="description"/>
+        <result property="uploadTime" column="upload_time"/>
+        <result property="downloadCount" column="download_count"/>
+        <result property="courseName" column="course_name"/>
+        <result property="uploaderName" column="uploader_name"/>
+    </resultMap>
+
+    <select id="getAllMaterialsWithDetails" resultMap="MaterialResultMap">
+        SELECT
+            m.material_id, m.course_id, m.uploader_id, m.file_name, m.file_path,
+            m.file_type, m.file_size, m.description, m.upload_time, m.download_count,
+            c.course_name, u.username AS uploader_name
+        FROM materials m
+                 JOIN courses c ON m.course_id = c.course_id
+                 JOIN users u ON m.uploader_id = u.user_id
+        ORDER BY c.course_name ASC, m.upload_time DESC
+    </select>
+
+    <select id="findMaterialById" resultMap="MaterialResultMap">
+        SELECT
+            m.material_id, m.course_id, m.uploader_id, m.file_name, m.file_path,
+            m.file_type, m.file_size, m.description, m.upload_time, m.download_count,
+            c.course_name, u.username AS uploader_name
+        FROM materials m
+                 JOIN courses c ON m.course_id = c.course_id
+                 JOIN users u ON m.uploader_id = u.user_id
+        WHERE m.material_id = #{materialId}
+    </select>
+
+    <select id="findMaterialsByCourseId" resultMap="MaterialResultMap">
+        SELECT
+            m.material_id, m.course_id, m.uploader_id, m.file_name, m.file_path,
+            m.file_type, m.file_size, m.description, m.upload_time, m.download_count,
+            c.course_name, u.username AS uploader_name
+        FROM materials m
+                 JOIN courses c ON m.course_id = c.course_id
+                 JOIN users u ON m.uploader_id = u.user_id
+        WHERE m.course_id = #{courseId}
+        ORDER BY m.upload_time DESC
+    </select>
+
+    <insert id="insertMaterial" parameterType="com.example.model.Material" useGeneratedKeys="true" keyProperty="materialId">
+        INSERT INTO materials (course_id, uploader_id, file_name, file_path, file_type, file_size, description, upload_time)
+        VALUES (#{courseId}, #{uploaderId}, #{fileName}, #{filePath}, #{fileType}, #{fileSize}, #{description}, #{uploadTime})
+    </insert>
+
+    <update id="incrementDownloadCount">
+        UPDATE materials SET download_count = download_count + 1 WHERE material_id = #{materialId}
+    </update>
+
+    <delete id="deleteMaterialById">
+        DELETE FROM materials WHERE material_id = #{materialId}
+    </delete>
+
+</mapper>

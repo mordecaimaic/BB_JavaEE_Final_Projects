@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="com.campus.assistant.model.User" %>
+<%@ page import="com.example.model.User" %>
 
 <%-- 1. 登录检查 --%>
 <%
@@ -135,7 +135,7 @@
     </div>
 
     <div class="mt-4 text-center">
-        <a href="dashboard.jsp" class="btn btn-secondary">返回仪表板</a>
+        <a href="dashboard" class="btn btn-secondary">返回仪表板</a>
     </div>
 
 </div> <%-- End of .container --%>
