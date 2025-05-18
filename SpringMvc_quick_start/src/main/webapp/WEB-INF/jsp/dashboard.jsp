@@ -1,17 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%-- 引入 JSTL core 标签库 (如果需要显示动态信息) --%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- 1. 登录状态检查 (非常重要!) --%>
 <%
-    // 检查 session 中是否有用户信息
-    // 假设登录成功后，你在 Servlet 中执行了: session.setAttribute("user", userObject);
     if (session.getAttribute("user") == null) {
-        // 如果未登录，重定向到登录页面
-        response.sendRedirect("login");
-        return; // 必须加 return，防止继续执行页面代码导致错误
+        response.sendRedirect(request.getContextPath() + "/login");
+        return;
     }
-    // 如果已登录，可以获取用户信息 (可选，如果 header.jsp 中已处理)
-    // com.campus.assistant.model.User loggedInUser = (com.campus.assistant.model.User) session.getAttribute("user");
 %>
 
 <!DOCTYPE html>
@@ -22,22 +16,62 @@
     <title>校园小助手 - 仪表板</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* 可以添加一些自定义样式 */
+        body {
+            background-image: url('${pageContext.request.contextPath}/static/images/dashboard_background.png');
+            background-color: #f4f7f6;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            /* 确保这个值与 header.jsp 中固定导航栏的实际高度一致 */
+            /* 如果导航栏不是固定的，或者您在 header.jsp 中用其他方式处理了占位，可以调整或移除此项 */
+            padding-top: 56px; /* 假设导航栏高度为 56px */
+        }
+
+        /* 确保 header.jsp 中的导航栏（如果它是 fixed-top）具有足够高的 z-index */
+        /* Bootstrap 的 fixed-top navbar 通常已经处理了 z-index (默认为 1030) */
+        /* 如果您自定义了 header.jsp 且没有使用 Bootstrap 的 fixed-top，可能需要手动设置： */
+        /*
+        .your-custom-fixed-header-class {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030; // 或者一个比页面其他内容都高的值
+            // 确保它有背景色，例如：
+            // background-color: #343a40; // 示例深色
+        }
+        */
+
         .feature-card {
-            margin-bottom: 1.5rem; /* 卡片间距 */
-            transition: transform .2s; /* 添加悬停效果 */
+            margin-bottom: 1.5rem;
+            transition: transform .2s;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
         }
         .feature-card:hover {
-            transform: scale(1.03); /* 悬停时放大一点 */
+            transform: scale(1.03);
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
         }
         .card-body a.btn {
-            width: 80%; /* 让按钮宽度统一 */
+            width: 80%;
+        }
+        .container.mt-5 {
+            /* 确保这里的 mt-5 不会因为 body 的 padding-top 而产生双重间距问题 */
+            /* 如果 body 有 padding-top，这里的 mt-5 依然会生效，计算是从 body 的 padding 内部开始的 */
+            /* 您可能希望内容区域与导航栏底部保持一定距离 */
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
 
 <%-- 2. 包含通用的导航栏 --%>
+<%-- 确保 header.jsp 中的导航栏HTML使用了 Bootstrap 的 fixed-top 类 (例如 <nav class="navbar ... fixed-top">) --%>
 <jsp:include page="header.jsp" />
 
 <%-- 3. 主体内容区域 - 功能导航 --%>
@@ -45,126 +79,101 @@
     <h1 class="mb-4 text-center">欢迎使用校园小助手</h1>
     <p class="lead text-center mb-5">请选择您需要使用的功能：</p>
 
-    <%-- 使用 Bootstrap 网格系统排列功能卡片 --%>
     <div class="row justify-content-center">
-
-        <%-- 功能卡片 1: 课程管理 --%>
+        <%-- 功能卡片 ... (省略以减少篇幅) ... --%>
         <div class="col-lg-4 col-md-6">
             <div class="card feature-card text-center shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">课程管理</h5>
                     <p class="card-text text-muted">查看、添加或删除您的课程表。</p>
-                    <%-- ★★★ 修改这里的 href ★★★ --%>
                     <a href="${pageContext.request.contextPath}/courses" class="btn btn-outline-primary mt-2">进入课程管理</a>
-                    <%-- 使用 ${pageContext.request.contextPath} 获取项目根路径，更健壮 --%>
+                </div>
+            </div>
+        </div>
+        <%-- 其他卡片 --%>
+        <div class="col-lg-4 col-md-6">
+            <div class="card feature-card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">作业提交</h5>
+                    <p class="card-text text-muted">上传作业文件，查看截止日期和状态。</p>
+                    <a href="${pageContext.request.contextPath}/assignments" class="btn btn-outline-primary mt-2">查看我的作业</a>
                 </div>
             </div>
         </div>
 
-            <%-- 功能卡片 2: 作业提交 --%>
-            <div class="col-lg-4 col-md-6">
-                <div class="card feature-card text-center shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">作业提交</h5>
-                        <p class="card-text text-muted">上传作业文件，查看截止日期和状态。</p>
-                        <%-- ★★★ 修改这里的 href ★★★ --%>
-                        <a href="${pageContext.request.contextPath}/assignments" class="btn btn-outline-primary mt-2">查看我的作业</a>
-                    </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card feature-card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">校园公告</h5>
+                    <p class="card-text text-muted">浏览学校或院系的最新通知。</p>
+                    <a href="${pageContext.request.contextPath}/announcements" class="btn btn-outline-primary mt-2">查看公告</a>
                 </div>
             </div>
+        </div>
 
-            <%-- 功能卡片 3: 校园公告 --%>
-            <div class="col-lg-4 col-md-6">
-                <div class="card feature-card text-center shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">校园公告</h5>
-                        <p class="card-text text-muted">浏览学校或院系的最新通知。</p>
-                        <%-- ★★★ 修改这里的 href ★★★ --%>
-                        <a href="${pageContext.request.contextPath}/announcements" class="btn btn-outline-primary mt-2">查看公告</a>
-                    </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card feature-card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">个人日程</h5>
+                    <p class="card-text text-muted">管理您的学习和生活日程安排。</p>
+                    <a href="${pageContext.request.contextPath}/schedule" class="btn btn-outline-primary mt-2">管理我的日程</a>
                 </div>
             </div>
+        </div>
 
-            <%-- 功能卡片 4: 个人日程 --%>
-            <div class="col-lg-4 col-md-6">
-                <div class="card feature-card text-center shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">个人日程</h5>
-                        <p class="card-text text-muted">管理您的学习和生活日程安排。</p>
-                        <%-- ★★★ 修改这里的 href ★★★ --%>
-                        <a href="${pageContext.request.contextPath}/schedule" class="btn btn-outline-primary mt-2">管理我的日程</a>
-                    </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card feature-card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">资料共享</h5>
+                    <p class="card-text text-muted">上传或下载学习相关资料文件。</p>
+                    <a href="${pageContext.request.contextPath}/materials" class="btn btn-outline-primary mt-2">进入资料共享</a>
                 </div>
             </div>
+        </div>
 
-            <%-- 功能卡片 5: 资料共享 --%>
-            <div class="col-lg-4 col-md-6">
-                <div class="card feature-card text-center shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">资料共享</h5>
-                        <p class="card-text text-muted">上传或下载学习相关资料文件。</p>
-                        <%-- ★★★ 修改这里的 href ★★★ --%>
-                        <a href="${pageContext.request.contextPath}/materials" class="btn btn-outline-primary mt-2">进入资料共享</a>
-                    </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card feature-card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">个人中心</h5>
+                    <p class="card-text text-muted">查看或修改您的个人信息。</p>
+                    <a href="${pageContext.request.contextPath}/profile" class="btn btn-outline-primary mt-2">进入个人中心</a>
                 </div>
             </div>
+        </div>
 
-            <%-- 个人中心卡片 --%>
-            <div class="col-lg-4 col-md-6">
-                <div class="card feature-card text-center shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">个人中心</h5>
-                        <p class="card-text text-muted">查看或修改您的个人信息。</p>
-                        <%-- ★★★ 修改这里的 href 并移除 disabled ★★★ --%>
-                        <a href="${pageContext.request.contextPath}/profile" class="btn btn-outline-primary mt-2">进入个人中心</a>
-                    </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card feature-card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">生活费用缴纳</h5>
+                    <p class="card-text text-muted">缴纳住宿费、水电费等校园生活相关费用。</p>
+                    <a href="${pageContext.request.contextPath}/hello" class="btn btn-outline-primary mt-2">前往缴费</a>
                 </div>
             </div>
+        </div>
 
-            <%-- 功能卡片 7: 生活费用缴纳 --%>
-            <div class="col-lg-4 col-md-6">
-                <div class="card feature-card text-center shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">生活费用缴纳</h5>
-                        <p class="card-text text-muted">缴纳住宿费、水电费等校园生活相关费用。</p>
-                        <%-- ★★★ 修改这里的 href ★★★ --%>
-                        <a href="${pageContext.request.contextPath}/hello" class="btn btn-outline-primary mt-2">前往缴费</a>
-                    </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card feature-card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">校园活动</h5>
+                    <p class="card-text text-muted">查看近期校园活动、讲座和展览信息。</p>
+                    <a href="${pageContext.request.contextPath}/hello" class="btn btn-outline-primary mt-2">查看活动</a>
                 </div>
             </div>
+        </div>
 
-            <%-- 功能卡片 8: 校园活动 --%>
-            <div class="col-lg-4 col-md-6">
-                <div class="card feature-card text-center shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">校园活动</h5>
-                        <p class="card-text text-muted">查看近期校园活动、讲座和展览信息。</p>
-                        <%-- ★★★ 修改这里的 href ★★★ --%>
-                        <a href="${pageContext.request.contextPath}/hello" class="btn btn-outline-primary mt-2">查看活动</a>
-                    </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card feature-card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">学生组织</h5>
+                    <p class="card-text text-muted">浏览学生社团和组织，寻找您的兴趣爱好。</p>
+                    <a href="${pageContext.request.contextPath}/hello" class="btn btn-outline-primary mt-2">探索组织</a>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
-            <%-- 功能卡片 9: 学生组织 --%>
-            <div class="col-lg-4 col-md-6">
-                <div class="card feature-card text-center shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">学生组织</h5>
-                        <p class="card-text text-muted">浏览学生社团和组织，寻找您的兴趣爱好。</p>
-                        <%-- ★★★ 修改这里的 href ★★★ --%>
-                        <a href="${pageContext.request.contextPath}/hello" class="btn btn-outline-primary mt-2">探索组织</a>
-                    </div>
-                </div>
-            </div>
-
-    </div> <%-- End of .row --%>
-</div> <%-- End of .container --%>
-
-<%-- 4. 引入 Bootstrap JS (通常放在 body 结束前) --%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<%-- 可以包含一个页脚 (footer.jsp) --%>
-<%-- <jsp:include page="footer.jsp" /> --%>
 
 </body>
 </html>
