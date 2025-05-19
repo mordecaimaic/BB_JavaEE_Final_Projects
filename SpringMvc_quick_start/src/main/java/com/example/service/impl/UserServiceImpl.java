@@ -1,5 +1,6 @@
-package com.example.service;
+package com.example.service.impl;
 
+import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; // 假设您使用Spring Security的密码编码器
 import org.springframework.stereotype.Service;

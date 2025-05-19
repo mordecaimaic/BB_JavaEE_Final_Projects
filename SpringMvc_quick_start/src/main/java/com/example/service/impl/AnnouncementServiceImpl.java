@@ -1,7 +1,8 @@
-package com.example.service;
+package com.example.service.impl;
 
 import com.example.mapper.AnnouncementMapper;
 import com.example.model.Announcement;
+import com.example.service.AnnouncementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,11 @@
-package com.example.service;
+package com.example.service.impl;
 
 import com.example.model.AssignmentWithSubmission;
 import com.example.model.Submission;
 // 假设你的 AssignmentDAO 迁移成了 MyBatis Mapper 接口 AssignmentMapper
 // 或者你仍然使用原始的 AssignmentDAO，但需要将其声明为 Spring Bean
 import com.example.mapper.AssignmentMapper; // 或 com.example.dao.AssignmentDAO
+import com.example.service.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

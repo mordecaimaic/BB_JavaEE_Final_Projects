@@ -1,9 +1,10 @@
-package com.example.service;
+package com.example.service.impl;
 
 import com.example.model.Course;
 // 假设你的 CourseDAO 迁移后变成了 MyBatis Mapper 接口
 // 或者你仍然使用原始的 CourseDAO，但需要将其声明为 Spring Bean
 import com.example.mapper.CourseMapper; // 或者 com.example.dao.CourseDAO
+import com.example.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional; // 如果需要事务管理

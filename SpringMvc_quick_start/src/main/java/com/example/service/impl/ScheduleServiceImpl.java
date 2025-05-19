@@ -1,7 +1,8 @@
-package com.example.service;
+package com.example.service.impl;
 
 import com.example.mapper.ScheduleMapper;
 import com.example.model.Schedule;
+import com.example.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional; // 引入事务注解

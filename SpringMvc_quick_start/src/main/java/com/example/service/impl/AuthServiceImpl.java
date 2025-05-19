@@ -1,9 +1,10 @@
-package com.example.service;
+package com.example.service.impl;
 
 import com.example.mapper.PersistentLoginMapper;
 import com.example.mapper.UserMapper;
 import com.example.model.PersistentLogin;
 import com.example.model.User;
+import com.example.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;

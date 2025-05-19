@@ -1,8 +1,9 @@
-package com.example.service;
+package com.example.service.impl;
 
 import com.example.mapper.MaterialMapper;
 import com.example.model.Material;
 import com.example.model.User;
+import com.example.service.MaterialService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
