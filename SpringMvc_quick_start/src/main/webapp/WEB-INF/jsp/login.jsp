@@ -18,35 +18,16 @@
             background-color: #0a192f; /* 深蓝色备用背景，更贴近星空 */
             background-size: cover;       /* 保持覆盖，不留白 */
             background-repeat: no-repeat;
-
-            /* --- 调整这里的 background-position --- */
-            /* 选项 1: 默认居中 (您当前使用的) */
             background-position: center center;
-
-            /* 选项 2: 尝试让图片顶部居中，如果星空的上半部分更重要 */
-            /* background-position: center top; */
-
-            /* 选项 3: 尝试让图片底部居中，如果星空的下半部分更重要 */
-            /* background-position: center bottom; */
-
-            /* 选项 4: 尝试具体的百分比，例如，如果图片的视觉焦点偏上 */
-            /* background-position: 50% 25%; */ /* 水平居中，垂直方向从顶部25%处开始裁剪 */
-
-            /* 选项 5: 尝试具体的百分比，例如，如果图片的视觉焦点偏左上 */
-            /* background-position: 25% 25%; */
-
-            /* --- 请取消注释上面一个选项进行测试 --- */
         }
         .login-container {
             max-width: 400px;
             padding: 2rem;
-            /* 调整背景色和透明度，使其在星空背景下更和谐 */
             background-color: rgba(10, 25, 47, 0.8); /* 深蓝半透明背景 */
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             border: 1px solid rgba(255, 255, 255, 0.1); /* 可选：浅色边框 */
         }
-        /* 调整文字颜色以适应深色背景 */
         .login-container h2 {
             color: #e6f1ff; /* 浅蓝色或白色系 */
         }
@@ -62,7 +43,6 @@
         .login-container a:hover {
             color: #affce9;
         }
-        /* 可以为输入框也稍微调整一下样式，如果默认的在深色背景下不好看 */
         .login-container .form-control {
             background-color: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.2);
@@ -120,6 +100,18 @@
         <div class="mb-3">
             <label for="password" class="form-label">密码:</label>
             <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label d-block">角色:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="role" id="roleStudentLogin" value="student" checked>
+                <label class="form-check-label" for="roleStudentLogin">学生</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="role" id="roleAdminLogin" value="admin">
+                <label class="form-check-label" for="roleAdminLogin">管理员</label>
+            </div>
         </div>
         <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" value="true" id="rememberMe" name="rememberMe">

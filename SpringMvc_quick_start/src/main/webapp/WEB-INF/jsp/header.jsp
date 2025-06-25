@@ -1,25 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%-- 引入 JSTL 标签库，如果导航栏中使用了 JSTL/EL (例如显示用户名) --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- 获取当前请求的 URI，用于判断哪个导航链接应该高亮显示 (active) --%>
 <% String currentURI = request.getRequestURI(); %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <%-- Logo 或 站点名称，链接到仪表板 --%>
     <a class="navbar-brand" href="dashboard">校园小助手</a>
 
-    <%-- 移动设备上的折叠按钮 --%>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <%-- 导航链接 --%>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%-- 如果当前页面是 dashboard.jsp，则添加 'active' 类 --%>
           <a class="nav-link <%= currentURI.endsWith("dashboard") ? "active" : "" %>" aria-current="page" href="dashboard">首页</a>
         </li>
         <li class="nav-item">
@@ -39,19 +33,32 @@
         </li>
       </ul>
 
-      <%-- 用户信息和退出登录按钮 (放在导航栏右侧) --%>
       <ul class="navbar-nav">
-        <%-- 检查 session 中是否有用户信息 (假设登录后设置了 sessionScope.user) --%>
         <c:if test="${not empty sessionScope.user}">
           <li class="nav-item">
-              <%-- 使用 EL 表达式显示用户名, 假设 User 对象有 getUsername() 方法 --%>
             <span class="navbar-text me-3">
-                            欢迎, ${sessionScope.user.username}!
-                        </span>
+              <%-- ========== 修改部分开始 ========== --%>
+              <c:choose>
+                <%-- 条件1: 如果用户角色是 'admin' --%>
+                <c:when test="${sessionScope.user.role == 'admin'}">
+                  欢迎, ${sessionScope.user.username} 老师！
+                </c:when>
+
+                <%-- 条件2: 如果用户角色是 'student' --%>
+                <c:when test="${sessionScope.user.role == 'student'}">
+                  欢迎, ${sessionScope.user.username} 同学！
+                </c:when>
+
+                <%-- 其他情况 (例如角色信息缺失), 显示默认欢迎语 --%>
+                <c:otherwise>
+                  欢迎, ${sessionScope.user.username}!
+                </c:otherwise>
+              </c:choose>
+              <%-- ========== 修改部分结束 ========== --%>
+            </span>
           </li>
         </c:if>
         <li class="nav-item">
-          <%-- 退出登录按钮，链接到处理登出的 Servlet (例如 logoutServlet) --%>
           <a class="btn btn-outline-light" href="logoutServlet">退出登录</a>
         </li>
       </ul>
