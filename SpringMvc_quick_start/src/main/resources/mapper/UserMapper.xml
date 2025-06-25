@@ -28,6 +28,12 @@
         WHERE username = #{username}
     </select>
 
+    <select id="selectByUsernameAndRole" resultMap="UserResultMap">
+        SELECT user_id, username, password, phone, email, student_id, department, role, created_at
+        FROM users
+        WHERE username = #{username} AND role = #{role}
+    </select>
+
     <select id="getPasswordHash" resultType="java.lang.String">
         SELECT password
         FROM users

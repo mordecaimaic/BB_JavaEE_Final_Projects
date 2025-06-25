@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 public class RegisterController {
 
     @Autowired
-    private UserService userService;   // 你已经写了，但没用到
+    private UserService userService;
 
     /** GET /register   显示页面 */
     @GetMapping
@@ -29,6 +29,7 @@ public class RegisterController {
                              @RequestParam("password") String password,
                              @RequestParam("confirmPassword") String confirmPassword,
                              @RequestParam(value = "email", required = false) String email,
+                             @RequestParam("role") String role, // 新增：接收角色参数
                              Model model) {
 
         // 1. 基础校验
@@ -36,18 +37,18 @@ public class RegisterController {
             model.addAttribute("errorMessage", "两次密码不一致！");
             return "register";
         }
+        // 注意：这里的查询应该也考虑角色，但为简化，我们假设用户名在整个系统是唯一的
         if (userService.findByUsername(username) != null) {
             model.addAttribute("errorMessage", "用户名已存在！");
             return "register";
         }
 
-        // 2. 组装实体（可按需补 phone/department…）
+        // 2. 组装实体
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);     // *生产环境记得加密*
         user.setEmail(email);
-        user.setRole("student");        // 默认角色
-        // 其余字段留 null，表里有 DEFAULT 或允许 null 就行
+        user.setRole(role); // 修改：使用前端传递的角色
 
         // 3. 调 Service -> Mapper -> INSERT
         boolean ok = userService.register(user);

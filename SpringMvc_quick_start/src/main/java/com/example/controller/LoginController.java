@@ -19,24 +19,28 @@ public class LoginController {
 
     @GetMapping
     public String showLoginForm() {
-        return "login";  // /WEB-INF/views/login.jsp
+        return "login";
     }
 
     /** POST /login —— 处理登录 */
     @PostMapping
     public String doLogin(@RequestParam("username") String username,
                           @RequestParam("password") String password,
+                          @RequestParam("role") String role, // 新增：接收角色参数
                           HttpSession session,
                           Model model) {
 
-        User user = authService.login(username, password);
+        // 修改：调用登录服务时传入角色
+        User user = authService.login(username, password, role);
+
         if (user == null) {
-            model.addAttribute("errorMessage", "用户名或密码错误");
+            // 修改：更新错误信息
+            model.addAttribute("errorMessage", "用户名、密码或角色错误");
             return "login";
         }
         // 存 session
         session.setAttribute("user", user);
-        return "redirect:/index";
+        return "redirect:/index"; // 建议重定向到 dashboard 或 index
     }
 
     @GetMapping("/logout")
@@ -44,13 +48,15 @@ public class LoginController {
                          @CookieValue(value = "REMEMBER_TOKEN",  required = false) String token,
                          HttpServletResponse resp) {
 
+        // 建议在这里也清空 session
+        // session.invalidate();
+
         // 清空 Cookie
         for (String n : new String[]{"REMEMBER_SERIES", "REMEMBER_TOKEN"}) {
             Cookie c = new Cookie(n, null);
             c.setMaxAge(0); c.setPath("/");
             resp.addCookie(c);
         }
-        // 如有需要可调用 authService.logout(username) 这里没 username 可省略
         return "redirect:/login";
     }
 }
